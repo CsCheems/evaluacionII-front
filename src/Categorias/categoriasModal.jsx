@@ -2,6 +2,9 @@ import React from 'react';
 import styles from './categoriasModal.module.css';
 
 export default function CategoriasModal({ onClose }) {
+
+
+
   return (
     <section className={styles.modal}>
       <div className={styles.modalContent}>
@@ -20,7 +23,7 @@ export default function CategoriasModal({ onClose }) {
         <input type="text" placeholder="Categoría Previa" name="categoriaPrev" id="catPrev" />
 
         <div className={styles.buttons}>
-          <button>Registrar</button>
+          <button >Registrar</button>
           <button onClick={onClose}>Cancelar</button>
         </div>
       </div>

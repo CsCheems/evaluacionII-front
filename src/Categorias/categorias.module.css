@@ -54,3 +54,32 @@ td, th {
     text-align: left;
     padding: 8px;
 }
+
+.editBtn,
+.deleteBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  color: white;
+  margin-right: 0.5rem;
+}
+
+.editBtn {
+  background-color: #007bff;
+}
+
+.editBtn:hover {
+  background-color: #0056b3;
+}
+
+.deleteBtn {
+  background-color: #dc3545;
+}
+
+.deleteBtn:hover {
+  background-color: #a71d2a;
+}
