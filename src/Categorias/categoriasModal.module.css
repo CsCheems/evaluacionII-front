@@ -1,49 +1,103 @@
 @import '../var.css';
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&family=Press+Start+2P&display=swap');
 
-.modelContent {
-  padding: 16px;
-  background-color: white;
-}
-
-input[type=text] {
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  
 }
 
-input[type=text]:focus {
-  background-color: #ddd;
+.modalContent {
+  background-color: var(--color-bg);
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  font-family: "Cal Sans";  
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modalContent h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.modalContent label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.modalContent input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.modalContent input[type="text"]:focus {
+  border-color: #4a90e2;
   outline: none;
 }
 
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
 }
 
-.registerbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
+.buttons button {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
+  transition: background-color 0.2s ease;
 }
 
-.registerbtn:hover {
-  opacity: 1;
+.buttons button:first-child {
+  background-color: #4a90e2;
+  color: white;
 }
 
-a {
-  color: dodgerblue;
+.buttons button:first-child:hover {
+  background-color: #357ac8;
 }
 
-.signin {
-  background-color: #f1f1f1;
-  text-align: center;
+.buttons button:last-child {
+  background-color: #e0e0e0;
+  color: #333;
 }
+
+.buttons button:last-child:hover {
+  background-color: #c7c7c7;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+

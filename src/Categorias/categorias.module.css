@@ -1,4 +1,5 @@
 @import "../var.css";
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&family=Press+Start+2P&display=swap');
 
 .main_container{
     position: relative;
@@ -24,7 +25,7 @@ h1{
     font-size: 72px;
     font-weight: 900;
     margin-bottom: 33px;
-    font-family: var(--font-roboto);      
+    font-family: "Cal Sans";      
 }
 
 .catBtn{
@@ -43,7 +44,7 @@ h1{
 }
 
 table {
-    font-family: arial, sans-serif;
+    font-family: "Cal Sans";  
     border-collapse: collapse;
     width: 100%;
 }
