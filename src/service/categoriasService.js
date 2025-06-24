@@ -4,7 +4,7 @@ const ms_catalogo_categorias = "http://localhost:8001";
 
 class CategoriasService{
 
-    obtenerCategirias(){
+    obtenerCategorias(){
         return axios.get(`${ms_catalogo_categorias}/categorias`);
     }
 
