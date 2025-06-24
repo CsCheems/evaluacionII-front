@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import React from 'react';
+import AppRoutes from './routes';
+import { BrowserRouter } from 'react-router-dom';
 import './App.module.css';
-import Categorias from './Categorias/categorias';
 
 function App() {
 
   return (
     <>
-      <Categorias/>
-    </>
-    
-    
+    <BrowserRouter>
+       <AppRoutes/>
+    </BrowserRouter>
+    </>    
   )
 }
 
-export default App
+export default App;
