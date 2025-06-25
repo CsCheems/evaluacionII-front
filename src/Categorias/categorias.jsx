@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './categorias.module.css'
 import CategoriasModal from './categoriasModal'
+import { obtenerCategorias, obtenerCategoriasPorId, crearCategoria } from '../service/categoriasService';
 
 export default function Categorias() {
 
@@ -15,8 +16,9 @@ export default function Categorias() {
     setVisible(false);
   };
 
-  const obtenerCategorias = () => {
-    
+  const getCategorias = () => {
+     const response = obtenerCategorias;
+     console.log(response);
   }
   
   return (
@@ -38,10 +40,10 @@ export default function Categorias() {
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                   <td>
                     <button className={styles.editBtn}>Editar</button>
                     <button className={styles.deleteBtn}>Eliminar</button>

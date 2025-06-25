@@ -33,7 +33,23 @@ class CategoriasService{
     }
 
     obtenerRequisitos(){
-        return axios.get(`${ms_catalogo_categorias}/api/requisito`);
+        return axios.get(`${ms_catalogo_categorias}/api/trequisito`);
+    }
+
+    obtenerRequisitosPorId(id){
+        return axios.get(`${ms_catalogo_categorias}/api/trequisitos/${id}`);
+    }
+
+    actualizarRequisitos(requisito){
+        return axios.put(`${ms_catalogo_categorias}/api/trequisitos`, requisito,{
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    eliminarRequisito(id){
+        return axios.delete(`${ms_catalogo_categorias}/api/trequisitos/${id}`);
     }
 
 }
