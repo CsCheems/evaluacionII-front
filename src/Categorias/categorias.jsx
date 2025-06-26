@@ -31,8 +31,21 @@ export default function Categorias() {
 
   const editatCategoria = async (id) => {
     const response = await CategoriasService.obtenerCategoriaId(id);
-    setSelectedCategoria(response.data); // Asume que response.data es la categoría
+    setSelectedCategoria(response.data);
     setVisible(true);
+  }
+
+  const eliminarCategoria = async (id) => {
+    const confirmacion = window.confirm("¿Estás seguro de que deseas eliminar esta categoría?");
+    if(!confirmacion) return;
+    try{
+      await CategoriasService.eliminarCategoria(id);
+      await getCategorias();
+    }catch(error){
+      console.error("Error al eliminar categoria", error);
+      alert("Error al tratar de eliminar categoria");
+    }
+    
   }
   
   return (
@@ -61,7 +74,7 @@ export default function Categorias() {
                     <td>{categoria.categoria_ant}</td>
                     <td>
                       <button onClick={() => editatCategoria(categoria.id)} className={styles.editBtn}>Editar</button>
-                      <button className={styles.deleteBtn}>Eliminar</button>
+                      <button onClick={() => eliminarCategoria(categoria.id)} className={styles.deleteBtn}>Eliminar</button>
                   </td>
                   </tr>
                 ))}
@@ -74,6 +87,7 @@ export default function Categorias() {
       {visible && (
         <CategoriasModal
           onClose={cerrarModal}
+          onSave={getCategorias}
           categoria={selectedCategoria}
         />
       )}

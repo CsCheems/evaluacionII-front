@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './categoriasModal.module.css';
 import CategoriasService from '../service/categoriasService';
 
-export default function CategoriasModal({ onClose, categoria }) {
+export default function CategoriasModal({ onClose, onSave, categoria }) {
   const [form, setForm] = useState({
     categoria: '',
     categoria_fed: '',
@@ -40,6 +40,7 @@ export default function CategoriasModal({ onClose, categoria }) {
     } else {
       await CategoriasService.crearCategoria(form);
     }
+    onSave();
     onClose();
   };
 
