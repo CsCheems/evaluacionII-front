@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styles from './categorias.module.css'
 import CategoriasModal from './categoriasModal'
+import InfoCategoriaModal from './infoCategoriaModal'; // Agrega esta línea
 import CategoriasService from '../service/categoriasService';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +11,8 @@ export default function Categorias() {
   const [visible, setVisible] = useState(false);
   const [response, setResponse] = useState({ data: [] });
   const [selectedCategoria, setSelectedCategoria] = useState(null);
+  const [infoVisible, setInfoVisible] = useState(false);
+  const [infoCategoria, setInfoCategoria] = useState(null);
 
   const abrirModal = () => {
     setSelectedCategoria(null); // Para crear, no hay categoría seleccionada
@@ -18,6 +21,16 @@ export default function Categorias() {
 
   const cerrarModal = () => {
     setVisible(false);
+  };
+
+  const mostrarInfoCategoria = (categoria) => {
+    setInfoCategoria(categoria);
+    setInfoVisible(true);
+  };
+
+  const cerrarInfoModal = () => {
+    setInfoVisible(false);
+    setInfoCategoria(null);
   };
 
   useEffect(() => {
@@ -75,8 +88,9 @@ export default function Categorias() {
                     <td>{categoria.categoria_ant}</td>
                     <td>
                       <button onClick={() => editatCategoria(categoria.id)} className={styles.editBtn}>Editar</button>
-                      <button onClick={() => eliminarCategoria(categoria.id)} className={styles.deleteBtn}>Eliminar</button>
-                  </td>
+                      <button onClick={() => eliminarCategoria(categoria.id)}className={styles.deleteBtn}>Eliminar</button>
+                      <button onClick={() => mostrarInfoCategoria(categoria)} className={styles.infoBtn}>Ver requisitos</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -90,6 +104,13 @@ export default function Categorias() {
           onClose={cerrarModal}
           onSave={getCategorias}
           categoria={selectedCategoria}
+        />
+      )}
+
+      {infoVisible && (
+        <InfoCategoriaModal
+          categoria={infoCategoria}
+          onClose={cerrarInfoModal}
         />
       )}
     </div>
