@@ -5,7 +5,7 @@ const ms_catalogo_categorias = "http://localhost:8001";
 class CategoriasService{
 
     obtenerCategorias(){
-        return axios.get(`${ms_catalogo_categorias}/api/categorias`);
+        return axios.get(`${ms_catalogo_categorias}/api/categorias?soloActivo=false`);
     }
 
     obtenerCategoriaId(id){
@@ -20,8 +20,8 @@ class CategoriasService{
         });
     }
 
-    actualizarCategoria(categoria){
-        return axios.put(`${ms_catalogo_categorias}/api/categorias`, categoria,{
+    actualizarCategoria(id, categoria){
+        return axios.put(`${ms_catalogo_categorias}/api/categorias/${id}`, categoria,{
             headers:{
                 'Content-Type':'application/json'
             }
@@ -33,7 +33,7 @@ class CategoriasService{
     }
 
     obtenerRequisitos(){
-        return axios.get(`${ms_catalogo_categorias}/api/trequisito`);
+        return axios.get(`${ms_catalogo_categorias}/api/trequisito?soloActivos=true`);
     }
 
     obtenerRequisitosPorId(id){

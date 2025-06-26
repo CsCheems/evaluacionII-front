@@ -1,14 +1,17 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './categorias.module.css'
 import CategoriasModal from './categoriasModal'
-import { obtenerCategorias, obtenerCategoriasPorId, crearCategoria } from '../service/categoriasService';
+import CategoriasService from '../service/categoriasService';
 
 export default function Categorias() {
 
   const [visible, setVisible] = useState(false);
-  
+  const [response, setResponse] = useState({ data: [] });
+  const [selectedCategoria, setSelectedCategoria] = useState(null);
+
   const abrirModal = () => {
+    setSelectedCategoria(null); // Para crear, no hay categoría seleccionada
     setVisible(true);
   } 
 
@@ -16,9 +19,20 @@ export default function Categorias() {
     setVisible(false);
   };
 
-  const getCategorias = () => {
-     const response = obtenerCategorias;
+  useEffect(() => {
+    getCategorias();
+  }, []);
+  
+  const getCategorias = async () => {
+     const response = await CategoriasService.obtenerCategorias();
      console.log(response);
+     setResponse(response);
+  }
+
+  const editatCategoria = async (id) => {
+    const response = await CategoriasService.obtenerCategoriaId(id);
+    setSelectedCategoria(response.data); // Asume que response.data es la categoría
+    setVisible(true);
   }
   
   return (
@@ -39,23 +53,30 @@ export default function Categorias() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <button className={styles.editBtn}>Editar</button>
-                    <button className={styles.deleteBtn}>Eliminar</button>
+                {response.data.map(categoria => (
+                  <tr key={categoria.id}>
+                    <td>{categoria.categoria}</td>
+                    <td>{categoria.categoria_fed}</td>
+                    <td>{categoria.categoria_est}</td>
+                    <td>{categoria.categoria_ant}</td>
+                    <td>
+                      <button onClick={() => editatCategoria(categoria.id)} className={styles.editBtn}>Editar</button>
+                      <button className={styles.deleteBtn}>Eliminar</button>
                   </td>
-                </tr>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
       </section>
 
-      {visible && <CategoriasModal onClose={cerrarModal}/>}
+      {visible && (
+        <CategoriasModal
+          onClose={cerrarModal}
+          categoria={selectedCategoria}
+        />
+      )}
     </div>
   )
 }
