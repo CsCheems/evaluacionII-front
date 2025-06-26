@@ -33,20 +33,29 @@ class CategoriasService{
     }
 
     obtenerRequisitos(){
-        return axios.get(`${ms_catalogo_categorias}/api/trequisito?soloActivos=true`);
+        return axios.get(`${ms_catalogo_categorias}/api/trequisito?soloActivos=false`);
     }
 
     obtenerRequisitosPorId(id){
         return axios.get(`${ms_catalogo_categorias}/api/trequisitos/${id}`);
     }
 
-    actualizarRequisitos(requisito){
-        return axios.put(`${ms_catalogo_categorias}/api/trequisitos`, requisito,{
+    editarRequisito(id, requisito) {
+        return axios.put(`${ms_catalogo_categorias}/api/trequisitos/${id}`, requisito, {
             headers: {
-                'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
             }
         });
     }
+
+    crearRequisito(idCategoria, requisito) {
+        return axios.post(`${ms_catalogo_categorias}/api/trequisitos?idCategioria=${idCategoria}`, requisito, {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        });
+    }
+
 
     eliminarRequisito(id){
         return axios.delete(`${ms_catalogo_categorias}/api/trequisitos/${id}`);

@@ -168,3 +168,54 @@ td, th {
   background: #0056b3;
   transform: scale(1.05);
 }
+
+.requisitosList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requisitoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.requisitoItem span {
+  flex: 1;
+  font-size: 14px;
+}
+
+.requisitoActions {
+  display: flex;
+  gap: 8px;
+}
+
+.requisitoActions button {
+  padding: 6px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.requisitoActions .editBtn {
+  background-color: #0072ff;
+  color: #fff;
+}
+
+.requisitoActions .editBtn:hover {
+  background-color: #0056b3;
+}
+
+.requisitoActions .deleteBtn {
+  background-color: #BD1313;
+  color: #fff;
+}
+
+.requisitoActions .deleteBtn:hover {
+  background-color: #C22D25;
+}

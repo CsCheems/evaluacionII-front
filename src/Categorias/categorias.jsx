@@ -4,7 +4,7 @@ import styles from './categorias.module.css'
 import CategoriasModal from './categoriasModal'
 import InfoCategoriaModal from './infoCategoriaModal'; // Agrega esta línea
 import CategoriasService from '../service/categoriasService';
-import { Link } from 'react-router-dom';
+import RequisitoModal from '../Requisitos/requisitoModal';
 
 export default function Categorias() {
 
@@ -13,9 +13,11 @@ export default function Categorias() {
   const [selectedCategoria, setSelectedCategoria] = useState(null);
   const [infoVisible, setInfoVisible] = useState(false);
   const [infoCategoria, setInfoCategoria] = useState(null);
+  const [requisitoVisible, setRequisitoVisible] = useState(false);
+  const [requisitoEditando, setRequisitoEditando] = useState(null);
 
   const abrirModal = () => {
-    setSelectedCategoria(null); // Para crear, no hay categoría seleccionada
+    setSelectedCategoria(null);
     setVisible(true);
   } 
 
@@ -31,6 +33,63 @@ export default function Categorias() {
   const cerrarInfoModal = () => {
     setInfoVisible(false);
     setInfoCategoria(null);
+  };
+
+  const abrirModalRequisito = () => {
+    if (infoCategoria?.id) {
+      setRequisitoVisible(true);
+    } else {
+      alert("Primero selecciona una categoría para agregar requisitos.");
+    }
+  };
+
+  const cerrarModalRequisito = () => {
+    setRequisitoEditando(null);
+    setRequisitoVisible(false);
+  };
+
+  const guardarRequisito = async (categoriaId, { requisito }) => {
+    try {
+      if (requisitoEditando) {
+        const requisitoActualizado = {
+          ...requisitoEditando,
+          requisito,
+          categoria: { id: categoriaId },
+          activo: requisitoEditando.activo ?? true,
+        };
+        await CategoriasService.editarRequisito(requisitoEditando.id, requisitoActualizado);
+      } else {
+        await CategoriasService.crearRequisito(categoriaId, { requisito });
+      }
+
+      const updated = await CategoriasService.obtenerCategoriaId(categoriaId);
+      setInfoCategoria(updated.data);
+      await getCategorias();
+    } catch (error) {
+      console.error("Error al guardar requisito", error);
+    }
+  };
+
+
+
+
+  const editarRequisito = (requisito) => {
+    setRequisitoEditando(requisito);
+    setRequisitoVisible(true);
+  };
+
+  const eliminarRequisito = async (idRequisito) => {
+    const confirmacion = window.confirm("¿Deseas eliminar este requisito?");
+    if (!confirmacion) return;
+
+    try {
+      await CategoriasService.eliminarRequisito(idRequisito);
+      const updated = await CategoriasService.obtenerCategoriaId(infoCategoria.id);
+      setInfoCategoria(updated.data);
+    } catch (error) {
+      console.error("Error al eliminar requisito", error);
+      alert("No se pudo eliminar el requisito");
+    }
   };
 
   useEffect(() => {
@@ -111,8 +170,23 @@ export default function Categorias() {
         <InfoCategoriaModal
           categoria={infoCategoria}
           onClose={cerrarInfoModal}
+          onAgregarRequisito={abrirModalRequisito}
+          onEditarRequisito={editarRequisito}
+          onEliminarRequisito={eliminarRequisito}
         />
       )}
+
+      {requisitoVisible && (
+        <RequisitoModal
+          categoriaId={infoCategoria?.id}
+          requisito={requisitoEditando}
+          onClose={cerrarModalRequisito}
+          onSave={guardarRequisito}
+        />
+      )}
+
+
+
     </div>
   )
 }
