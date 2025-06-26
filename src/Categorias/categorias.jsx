@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './categorias.module.css'
 import CategoriasModal from './categoriasModal'
 import CategoriasService from '../service/categoriasService';
+import { Link } from 'react-router-dom';
 
 export default function Categorias() {
 
